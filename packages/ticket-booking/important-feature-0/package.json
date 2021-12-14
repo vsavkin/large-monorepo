@@ -1,0 +1,7 @@
+{
+  "name": "ticket-booking-important-feature-0",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts"
+}

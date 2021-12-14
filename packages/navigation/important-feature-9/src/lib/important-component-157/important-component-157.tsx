@@ -1,0 +1,19 @@
+import * as components from 'shared-components';
+import * as alerts from 'shared-alerts';
+import * as dialogs from 'shared-dialogs';
+import * as icons from 'shared-icons';
+import * as buttons from 'shared-buttons';
+import './important-component-157.module.css';
+
+/* eslint-disable-next-line */
+export interface ImportantComponent157Props {}
+
+export function ImportantComponent157(props: ImportantComponent157Props) {
+  return (
+    <div>
+      <h1>Welcome to important-component-157!</h1>
+    </div>
+  );
+}
+
+export default ImportantComponent157;

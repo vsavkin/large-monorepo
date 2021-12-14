@@ -1,0 +1,326 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "crew-important-feature-0": [
+        "packages/crew/important-feature-0/src/index.ts"
+      ],
+      "crew-important-feature-1": [
+        "packages/crew/important-feature-1/src/index.ts"
+      ],
+      "crew-important-feature-10": [
+        "packages/crew/important-feature-10/src/index.ts"
+      ],
+      "crew-important-feature-11": [
+        "packages/crew/important-feature-11/src/index.ts"
+      ],
+      "crew-important-feature-12": [
+        "packages/crew/important-feature-12/src/index.ts"
+      ],
+      "crew-important-feature-13": [
+        "packages/crew/important-feature-13/src/index.ts"
+      ],
+      "crew-important-feature-14": [
+        "packages/crew/important-feature-14/src/index.ts"
+      ],
+      "crew-important-feature-15": [
+        "packages/crew/important-feature-15/src/index.ts"
+      ],
+      "crew-important-feature-16": [
+        "packages/crew/important-feature-16/src/index.ts"
+      ],
+      "crew-important-feature-17": [
+        "packages/crew/important-feature-17/src/index.ts"
+      ],
+      "crew-important-feature-18": [
+        "packages/crew/important-feature-18/src/index.ts"
+      ],
+      "crew-important-feature-19": [
+        "packages/crew/important-feature-19/src/index.ts"
+      ],
+      "crew-important-feature-2": [
+        "packages/crew/important-feature-2/src/index.ts"
+      ],
+      "crew-important-feature-3": [
+        "packages/crew/important-feature-3/src/index.ts"
+      ],
+      "crew-important-feature-4": [
+        "packages/crew/important-feature-4/src/index.ts"
+      ],
+      "crew-important-feature-5": [
+        "packages/crew/important-feature-5/src/index.ts"
+      ],
+      "crew-important-feature-6": [
+        "packages/crew/important-feature-6/src/index.ts"
+      ],
+      "crew-important-feature-7": [
+        "packages/crew/important-feature-7/src/index.ts"
+      ],
+      "crew-important-feature-8": [
+        "packages/crew/important-feature-8/src/index.ts"
+      ],
+      "crew-important-feature-9": [
+        "packages/crew/important-feature-9/src/index.ts"
+      ],
+      "flight-simulator-important-feature-0": [
+        "packages/flight-simulator/important-feature-0/src/index.ts"
+      ],
+      "flight-simulator-important-feature-1": [
+        "packages/flight-simulator/important-feature-1/src/index.ts"
+      ],
+      "flight-simulator-important-feature-10": [
+        "packages/flight-simulator/important-feature-10/src/index.ts"
+      ],
+      "flight-simulator-important-feature-11": [
+        "packages/flight-simulator/important-feature-11/src/index.ts"
+      ],
+      "flight-simulator-important-feature-12": [
+        "packages/flight-simulator/important-feature-12/src/index.ts"
+      ],
+      "flight-simulator-important-feature-13": [
+        "packages/flight-simulator/important-feature-13/src/index.ts"
+      ],
+      "flight-simulator-important-feature-14": [
+        "packages/flight-simulator/important-feature-14/src/index.ts"
+      ],
+      "flight-simulator-important-feature-15": [
+        "packages/flight-simulator/important-feature-15/src/index.ts"
+      ],
+      "flight-simulator-important-feature-16": [
+        "packages/flight-simulator/important-feature-16/src/index.ts"
+      ],
+      "flight-simulator-important-feature-17": [
+        "packages/flight-simulator/important-feature-17/src/index.ts"
+      ],
+      "flight-simulator-important-feature-18": [
+        "packages/flight-simulator/important-feature-18/src/index.ts"
+      ],
+      "flight-simulator-important-feature-19": [
+        "packages/flight-simulator/important-feature-19/src/index.ts"
+      ],
+      "flight-simulator-important-feature-2": [
+        "packages/flight-simulator/important-feature-2/src/index.ts"
+      ],
+      "flight-simulator-important-feature-3": [
+        "packages/flight-simulator/important-feature-3/src/index.ts"
+      ],
+      "flight-simulator-important-feature-4": [
+        "packages/flight-simulator/important-feature-4/src/index.ts"
+      ],
+      "flight-simulator-important-feature-5": [
+        "packages/flight-simulator/important-feature-5/src/index.ts"
+      ],
+      "flight-simulator-important-feature-6": [
+        "packages/flight-simulator/important-feature-6/src/index.ts"
+      ],
+      "flight-simulator-important-feature-7": [
+        "packages/flight-simulator/important-feature-7/src/index.ts"
+      ],
+      "flight-simulator-important-feature-8": [
+        "packages/flight-simulator/important-feature-8/src/index.ts"
+      ],
+      "flight-simulator-important-feature-9": [
+        "packages/flight-simulator/important-feature-9/src/index.ts"
+      ],
+      "navigation-important-feature-0": [
+        "packages/navigation/important-feature-0/src/index.ts"
+      ],
+      "navigation-important-feature-1": [
+        "packages/navigation/important-feature-1/src/index.ts"
+      ],
+      "navigation-important-feature-10": [
+        "packages/navigation/important-feature-10/src/index.ts"
+      ],
+      "navigation-important-feature-11": [
+        "packages/navigation/important-feature-11/src/index.ts"
+      ],
+      "navigation-important-feature-12": [
+        "packages/navigation/important-feature-12/src/index.ts"
+      ],
+      "navigation-important-feature-13": [
+        "packages/navigation/important-feature-13/src/index.ts"
+      ],
+      "navigation-important-feature-14": [
+        "packages/navigation/important-feature-14/src/index.ts"
+      ],
+      "navigation-important-feature-15": [
+        "packages/navigation/important-feature-15/src/index.ts"
+      ],
+      "navigation-important-feature-16": [
+        "packages/navigation/important-feature-16/src/index.ts"
+      ],
+      "navigation-important-feature-17": [
+        "packages/navigation/important-feature-17/src/index.ts"
+      ],
+      "navigation-important-feature-18": [
+        "packages/navigation/important-feature-18/src/index.ts"
+      ],
+      "navigation-important-feature-19": [
+        "packages/navigation/important-feature-19/src/index.ts"
+      ],
+      "navigation-important-feature-2": [
+        "packages/navigation/important-feature-2/src/index.ts"
+      ],
+      "navigation-important-feature-3": [
+        "packages/navigation/important-feature-3/src/index.ts"
+      ],
+      "navigation-important-feature-4": [
+        "packages/navigation/important-feature-4/src/index.ts"
+      ],
+      "navigation-important-feature-5": [
+        "packages/navigation/important-feature-5/src/index.ts"
+      ],
+      "navigation-important-feature-6": [
+        "packages/navigation/important-feature-6/src/index.ts"
+      ],
+      "navigation-important-feature-7": [
+        "packages/navigation/important-feature-7/src/index.ts"
+      ],
+      "navigation-important-feature-8": [
+        "packages/navigation/important-feature-8/src/index.ts"
+      ],
+      "navigation-important-feature-9": [
+        "packages/navigation/important-feature-9/src/index.ts"
+      ],
+      "shared-alerts": ["packages/shared/alerts/src/index.ts"],
+      "shared-buttons": ["packages/shared/buttons/src/index.ts"],
+      "shared-components": ["packages/shared/components/src/index.ts"],
+      "shared-dialogs": ["packages/shared/dialogs/src/index.ts"],
+      "shared-icons": ["packages/shared/icons/src/index.ts"],
+      "ticket-booking-important-feature-0": [
+        "packages/ticket-booking/important-feature-0/src/index.ts"
+      ],
+      "ticket-booking-important-feature-1": [
+        "packages/ticket-booking/important-feature-1/src/index.ts"
+      ],
+      "ticket-booking-important-feature-10": [
+        "packages/ticket-booking/important-feature-10/src/index.ts"
+      ],
+      "ticket-booking-important-feature-11": [
+        "packages/ticket-booking/important-feature-11/src/index.ts"
+      ],
+      "ticket-booking-important-feature-12": [
+        "packages/ticket-booking/important-feature-12/src/index.ts"
+      ],
+      "ticket-booking-important-feature-13": [
+        "packages/ticket-booking/important-feature-13/src/index.ts"
+      ],
+      "ticket-booking-important-feature-14": [
+        "packages/ticket-booking/important-feature-14/src/index.ts"
+      ],
+      "ticket-booking-important-feature-15": [
+        "packages/ticket-booking/important-feature-15/src/index.ts"
+      ],
+      "ticket-booking-important-feature-16": [
+        "packages/ticket-booking/important-feature-16/src/index.ts"
+      ],
+      "ticket-booking-important-feature-17": [
+        "packages/ticket-booking/important-feature-17/src/index.ts"
+      ],
+      "ticket-booking-important-feature-18": [
+        "packages/ticket-booking/important-feature-18/src/index.ts"
+      ],
+      "ticket-booking-important-feature-19": [
+        "packages/ticket-booking/important-feature-19/src/index.ts"
+      ],
+      "ticket-booking-important-feature-2": [
+        "packages/ticket-booking/important-feature-2/src/index.ts"
+      ],
+      "ticket-booking-important-feature-3": [
+        "packages/ticket-booking/important-feature-3/src/index.ts"
+      ],
+      "ticket-booking-important-feature-4": [
+        "packages/ticket-booking/important-feature-4/src/index.ts"
+      ],
+      "ticket-booking-important-feature-5": [
+        "packages/ticket-booking/important-feature-5/src/index.ts"
+      ],
+      "ticket-booking-important-feature-6": [
+        "packages/ticket-booking/important-feature-6/src/index.ts"
+      ],
+      "ticket-booking-important-feature-7": [
+        "packages/ticket-booking/important-feature-7/src/index.ts"
+      ],
+      "ticket-booking-important-feature-8": [
+        "packages/ticket-booking/important-feature-8/src/index.ts"
+      ],
+      "ticket-booking-important-feature-9": [
+        "packages/ticket-booking/important-feature-9/src/index.ts"
+      ],
+      "warp-drive-manager-important-feature-0": [
+        "packages/warp-drive-manager/important-feature-0/src/index.ts"
+      ],
+      "warp-drive-manager-important-feature-1": [
+        "packages/warp-drive-manager/important-feature-1/src/index.ts"
+      ],
+      "warp-drive-manager-important-feature-10": [
+        "packages/warp-drive-manager/important-feature-10/src/index.ts"
+      ],
+      "warp-drive-manager-important-feature-11": [
+        "packages/warp-drive-manager/important-feature-11/src/index.ts"
+      ],
+      "warp-drive-manager-important-feature-12": [
+        "packages/warp-drive-manager/important-feature-12/src/index.ts"
+      ],
+      "warp-drive-manager-important-feature-13": [
+        "packages/warp-drive-manager/important-feature-13/src/index.ts"
+      ],
+      "warp-drive-manager-important-feature-14": [
+        "packages/warp-drive-manager/important-feature-14/src/index.ts"
+      ],
+      "warp-drive-manager-important-feature-15": [
+        "packages/warp-drive-manager/important-feature-15/src/index.ts"
+      ],
+      "warp-drive-manager-important-feature-16": [
+        "packages/warp-drive-manager/important-feature-16/src/index.ts"
+      ],
+      "warp-drive-manager-important-feature-17": [
+        "packages/warp-drive-manager/important-feature-17/src/index.ts"
+      ],
+      "warp-drive-manager-important-feature-18": [
+        "packages/warp-drive-manager/important-feature-18/src/index.ts"
+      ],
+      "warp-drive-manager-important-feature-19": [
+        "packages/warp-drive-manager/important-feature-19/src/index.ts"
+      ],
+      "warp-drive-manager-important-feature-2": [
+        "packages/warp-drive-manager/important-feature-2/src/index.ts"
+      ],
+      "warp-drive-manager-important-feature-3": [
+        "packages/warp-drive-manager/important-feature-3/src/index.ts"
+      ],
+      "warp-drive-manager-important-feature-4": [
+        "packages/warp-drive-manager/important-feature-4/src/index.ts"
+      ],
+      "warp-drive-manager-important-feature-5": [
+        "packages/warp-drive-manager/important-feature-5/src/index.ts"
+      ],
+      "warp-drive-manager-important-feature-6": [
+        "packages/warp-drive-manager/important-feature-6/src/index.ts"
+      ],
+      "warp-drive-manager-important-feature-7": [
+        "packages/warp-drive-manager/important-feature-7/src/index.ts"
+      ],
+      "warp-drive-manager-important-feature-8": [
+        "packages/warp-drive-manager/important-feature-8/src/index.ts"
+      ],
+      "warp-drive-manager-important-feature-9": [
+        "packages/warp-drive-manager/important-feature-9/src/index.ts"
+      ]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
