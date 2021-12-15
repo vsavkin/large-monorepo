@@ -20,10 +20,12 @@ Run `npm run benchmark`. The benchmark will warm the cache of both Turbo and Nx.
 These are the numbers using the latest MBP machine:
 - average turbo time is: 3113.6
 - average nx time is: 592.62
-- nx is 5.253957004488543 faster
+- nx is 5.253957004488543 times faster
 
 These are the numbers using a Windows laptop:
-
+- average turbo time is: 15424.8
+- average nx time is: 2024.4
+- nx is 7.6332740561071 times faster
 
 ### Why is Nx faster
 
