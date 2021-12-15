@@ -45,7 +45,7 @@ The cache restoration Turborepo provides might be fast enough for a lot of repos
 
 When some folks compare Nx and Turborepo, they say something like "Nx may do all of those things well, and may be faster, but Turbo is built to stay out of you way". Let's talk about staying out of your way:
 
-Run `npx nx build crew --skip-nx-cache` and then run `npx turbo run build --scope=crew --force`:
+Run `npx turbo run build --scope=crew --force` and then run `npx nx build crew --skip-nx-cache`:
 
 ![terminal outputs](./readme-assets/terminal-outputs.png)
 
