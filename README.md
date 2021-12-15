@@ -2,7 +2,7 @@
 
 Recording:
 
-![nx-turbo-recording](./readme-assets/nx-turbo.gif)
+![nx-turbo-recording](./readme-assets/turbo-nx-perf.gif)
 
 Repo contains:
 
@@ -47,9 +47,9 @@ The cache restoration Turborepo provides might be fast enough for a lot of repos
 
 When some folks compare Nx and Turborepo, they say something like "Nx may do all of those things well, and may be faster, but Turbo is built to stay out of you way". Let's talk about staying out of your way:
 
-Run `npx turbo run build --scope=crew --force` and then run `npx nx build crew --skip-nx-cache`:
+Run `npx nx build crew --skip-nx-cache` and `npx turbo run build --scope=crew --force`:
 
-![terminal outputs](./readme-assets/terminal-outputs.png)
+![terminal outputs](./readme-assets/turbo-nx-terminal.gif)
 
 Nx doesn't change your terminal output. Spinners, animations, colors are the same whether you use Nx or not (we instrument Node.js to get this result). What is also important is that when you restore things from cache, Nx will replay the terminal output identical to the one you would have had you run the command.
 
@@ -60,4 +60,4 @@ A lot of Nx users don't even know they use Nx, or even what Nx is. Things they r
 
 ## Found an issue? Send a PR.
 
-If you find any issue with the repo, with the benchmark or the setup, please send a PR. 
+If you find any issue with the repo, with the benchmark or the setup, please send a PR. The intention isn't to cherry pick some example where Turbo doesn't do well because of some weird edge case. If it happens that the repo surfaces some edge case with how turbo works, send a PR, and let's fix it. We tried to select the setup that Turbo should handle well (e.g., Next.js apps). The repo doesn't use any incrementality which Nx is very good at. We did our best to make it fair.
