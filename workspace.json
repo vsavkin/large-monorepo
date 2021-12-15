@@ -1,0 +1,20 @@
+{
+    "version": 2,
+    "projects": {
+        "crew": {
+           "root": "apps/crew"
+        },
+        "flight-simulator": {
+           "root": "apps/flight-simulator"
+        },
+        "navigation": {
+            "root": "apps/navigation"
+         },
+        "ticket-booking": {
+           "root": "apps/ticket-booking"
+        },
+        "warp-drive-manager": {
+            "root": "apps/warp-drive-manager"
+         }
+    }
+}

@@ -1,0 +1,14 @@
+{
+  "extends": "@nrwl/workspace/presets/npm.json",
+  "npmScope": "large-monorepo",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build"],
+        "useDaemonProcess": true,
+        "parallel": 3
+      }
+    }
+  }
+}
