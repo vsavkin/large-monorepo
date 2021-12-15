@@ -2,7 +2,7 @@
 
 Recording:
 
-![nx-turbo-recording](./readme-assets/nx-turbo.gif)
+[![nx-turbo-recording](./readme-assets/nx-turbo.gif)](https://raw.githubusercontent.com/vsavkin/large-monorepo/main/readme-assets/nx-turbo.gif)
 
 Repo contains:
 
@@ -49,7 +49,7 @@ When some folks compare Nx and Turborepo, they say something like "Nx may do all
 
 Run `npx turbo run build --scope=crew --force` and then run `npx nx build crew --skip-nx-cache`:
 
-![terminal outputs](./readme-assets/terminal-outputs.png)
+[![terminal outputs](./readme-assets/terminal-outputs.png)](https://raw.githubusercontent.com/vsavkin/large-monorepo/main/readme-assets/terminal-outputs.png)
 
 Nx doesn't change your terminal output. Spinners, animations, colors are the same whether you use Nx or not (we instrument Node.js to get this result). What is also important is that when you restore things from cache, Nx will replay the terminal output identical to the one you would have had you run the command.
 
