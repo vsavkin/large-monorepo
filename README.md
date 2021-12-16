@@ -22,7 +22,7 @@ These are the numbers using the latest MBP machine:
 - average nx time is: 293.22
 - nx is 9.47895777914194 faster
 
-(The original version of the benchmark used Nx 13.3.6 that had a bug in it. Nx@13.2.6 was only 5.2 faster than Turbo)
+(The original version of the benchmark used Nx 13.3.6 that had a bug in it. Nx@13.3.6 was only 5.2 faster than Turbo)
 
 These are the numbers using a Windows laptop:
 - average turbo time is: 19677.94
