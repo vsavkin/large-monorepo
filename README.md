@@ -18,22 +18,25 @@ The repo has both Nx and Turbo enabled. They don't affect each other. You can re
 Run `npm run benchmark`. The benchmark will warm the cache of both Turbo and Nx. We benchmark how quickly Turbo/Nx can figure out what needs to be restored from the cache and restores it.
 
 These are the numbers using the latest MBP machine:
-- average turbo time is: 3113.6
-- average nx time is: 592.62
-- nx is 5.253957004488543 times faster
+- average turbo time is: 2779.42
+- average nx time is: 293.22
+- nx is 9.47895777914194 faster
+
+(The original version of the benchmark used Nx 13.3.6 that had a bug in it. Nx@13.2.6 was only 5.2 faster than Turbo)
 
 These are the numbers using a Windows laptop:
-- average turbo time is: 15424.8
-- average nx time is: 2024.4
-- nx is 7.6332740561071 times faster
+- average turbo time is: 19677.94
+- average nx time is: 1005.64
+- nx is 19.567578855256354 times faster
+
 
 ### Why is Nx faster
 
 Nx is in many ways akin to React in that it's doing tree diffing when restoring files from the cache. If the right files are in the right place, Nx won't touch them. Turbo blows everything away every time. Nx's version isn't just faster, it's also more useful (again similarly to tree diffing in React). Blowing everything away on every restoration means that if any tools watch the folders (which is common when you build large apps or build microfrontends), they are going to get confused or triggered for no reason. This is similar to  how recreating the DOM from scratch isn't just slower, but results in worse UX.
 
-If you remove the folders before every invocation (Nx will have to recreate all the folders the same way, so its smartness doesn't help it), Nx is still 1.5 times faster.
+If you remove the folders before every invocation (Nx will have to recreate all the folders the same way, so its smartness doesn't help it), Nx is still 1.7 times faster. So depending on the state of your repo invoking Nx will be from 1.7 times to 9.47 times faster (on a mac).
 
-Is Nx always faster? No. Nx uses Node.js, so it takes about 150ms to boot, regardless of what you do. You build 1000 projects, takes 150ms. You build 1 project, it takes 150ms. If you have a repo with say 10 files in it, running Turbo will likely be faster because it boots faster.
+Is Nx always faster? No. Nx uses Node.js, so it takes about 70ms (on a mac) to boot, regardless of what you do. You build 1000 projects, takes 70ms. You build 1 project, it takes 70ms. If you have a repo with say 10 files in it, running Turbo will likely be faster because it boots faster.
 
 Yarn, npm, pnpm have a similar boot time to Nx, and folks don't mind. And, of course, it's worth asking whether a high-performance build tool is even required for a repo with 10 files in it.
 
@@ -47,7 +50,7 @@ The cache restoration Turborepo provides might be fast enough for a lot of repos
 
 When some folks compare Nx and Turborepo, they say something like "Nx may do all of those things well, and may be faster, but Turbo is built to stay out of you way". Let's talk about staying out of your way:
 
-Run `npx nx build crew --skip-nx-cache` and `npx turbo run build --scope=crew --force`:
+Run `nx build crew --skip-nx-cache` and `turbo run build --scope=crew --force`:
 
 ![terminal outputs](./readme-assets/turbo-nx-terminal.gif)
 

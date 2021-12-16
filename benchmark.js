@@ -15,21 +15,21 @@ function cleanFolders() {
 
 message('prepping turbo')
 // prep turbo
-cp.execSync('npx turbo run build --concurrency=3');
+cp.execSync('./node_modules/.bin/turbo run build --concurrency=3');
 // appears to be a bug in turbo where it only caches some tasks on the second run
 // let's run it twice to make sure turbo is able to cache everything :)
-cp.execSync('npx turbo run build --concurrency=3');
+cp.execSync('./node_modules/.bin/turbo run build --concurrency=3');
 
 message('prepping nx')
 // we don't have to run it twice :)
-cp.execSync('npx nx run-many --target=build --all');
+cp.execSync('./node_modules/.bin/nx run-many --target=build --all');
 
 message(`running turbo ${NUMBER_OF_RUNS} times`)
 const turboBefore = new Date()
 for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
   // cleanFolders();
   const b = new Date()
-  cp.execSync('npx turbo run build --concurrency=3', { stdio: [0, 1, 2] });
+  cp.execSync('./node_modules/.bin/turbo run build --concurrency=3', { stdio: [0, 1, 2] });
   const a = new Date()
   console.log(`The command ran in ${a.getTime() - b.getTime()}ms`)
 }
@@ -41,7 +41,7 @@ const nxBefore = new Date()
 for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
   // cleanFolders();
   const b = new Date()
-  cp.execSync('npx nx run-many --target=build --all', { stdio: [0, 1, 2] });
+  cp.execSync('./node_modules/.bin/nx run-many --target=build --all', { stdio: [0, 1, 2] });
   const a = new Date()
   console.log(`The command ran in ${a.getTime() - b.getTime()}ms`)
 }
