@@ -2,7 +2,7 @@ const cp = require('child_process');
 const path = require('path');
 const os = require('os');
 
-const NUMBER_OF_RUNS = 50;
+const NUMBER_OF_RUNS = 5;
 const CONCURRENCY = 3;
 
 function message(m) {
