@@ -1,4 +1,4 @@
-# Benchmarking Nx and Turbo
+# Benchmarking Nx and Turbo (and Lage)
 
 Recording:
 
@@ -13,28 +13,31 @@ Combined there are about 26k components. It's a lot of components, but they are 
 
 The repo has both Nx and Turbo enabled. They don't affect each other. You can remove one without affecting the other one.
 
+## January 10 update
+
+Kenneth Chau submitted a PR adding [Lage](https://github.com/microsoft/lage) to the benchmark (Thank you, Kenneth!). Lage is a robust tool used to manage a lot of repos at Microsoft. It's also the tool that heavily influenced the design of Turborepo.
+
+Kenneth also made some changes to the repo making the Turborepo version faster (by removing the `**` from the workspaces configuration in `package.json`). You can decide whether this configuration makes sense for you or not, but we've updated the numbers to the ones using the fastest version of the Turborepo setup.
+
+
 ## Benchmarking it
 
 Run `npm run benchmark`. The benchmark will warm the cache of both Turbo and Nx. We benchmark how quickly Turbo/Nx can figure out what needs to be restored from the cache and restores it.
 
-These are the numbers using the latest MBP machine:
-- average turbo time is: 2779.42
-- average nx time is: 293.22
-- nx is 9.47895777914194 faster
+These are the numbers using the latest MBP machine (Jan 10 version):
+- average turbo time is: 1574.1
+- average nx time is: 284
+- average lage time is: 4698.5
+- nx is 5.5426056338028165x faster than Turborepo
+- nx is 16.544014084507044x faster than Lage
 
-(The original version of the benchmark used Nx 13.3.6 that had a bug in it. Nx@13.3.6 was only 5.2 faster than Turbo)
+If you change the workspaces configuration to include `**`, Nx will be 9.4 times faster than Turbo.
 
-These are the numbers using a Windows laptop:
-- average turbo time is: 19677.94
-- average nx time is: 1005.64
-- nx is 19.567578855256354 times faster
+### Why is Nx faster than Turbo
 
+Nx is in many ways akin to React in that it's doing tree diffing when restoring files from the cache. If the right files are in the right place, Nx won't touch them. Turbo blows everything away every time. Nx's version isn't just faster, it's also more useful (again similarly to tree diffing in React). Blowing everything away on every restoration means that if any tools watch the folders (which is common when you build large apps or build microfrontends), they are going to get confused or triggered for no reason. This is similar to how recreating the DOM from scratch isn't just slower, but results in worse UX.
 
-### Why is Nx faster
-
-Nx is in many ways akin to React in that it's doing tree diffing when restoring files from the cache. If the right files are in the right place, Nx won't touch them. Turbo blows everything away every time. Nx's version isn't just faster, it's also more useful (again similarly to tree diffing in React). Blowing everything away on every restoration means that if any tools watch the folders (which is common when you build large apps or build microfrontends), they are going to get confused or triggered for no reason. This is similar to  how recreating the DOM from scratch isn't just slower, but results in worse UX.
-
-If you remove the folders before every invocation (Nx will have to recreate all the folders the same way, so its smartness doesn't help it), Nx is still 1.7 times faster. So depending on the state of your repo invoking Nx will be from 1.7 times to 9.47 times faster (on a mac).
+If you remove the folders before every invocation (Nx will have to recreate all the folders the same way, so its smartness doesn't help it), Nx is still 1.9 times faster than Turbo. So depending on the state of your repo invoking Nx will be from 1.9 times to 5.5 times faster than invoking Turbo (on a mac).
 
 Is Nx always faster? No. Nx uses Node.js, so it takes about 70ms (on a mac) to boot, regardless of what you do. You build 1000 projects, takes 70ms. You build 1 project, it takes 70ms. If you have a repo with say 10 files in it, running Turbo will likely be faster because it boots faster.
 
@@ -43,7 +46,7 @@ Yarn, npm, pnpm have a similar boot time to Nx, and folks don't mind. And, of co
 
 ### Does this performance difference matter in practice?
 
-The cache restoration Turborepo provides might be fast enough for a lot of repos (3 seconds is still plenty fast). What matters for larger repos like this one is the ability to distribute any command across say 50 machines while preserving the dev ergonomics of running it on a single machine. Nx can do it. Bazel can do it (which Nx borrows some ideas from). Turbo can't. This is where the perf gains are for larger repos.
+The cache restoration Turborepo (or Lage) provides is likely to be fast enough for a lot of repos (it's plenty fast). What matters for larger repos like this one is the ability to distribute any command across say 50 machines while preserving the dev ergonomics of running it on a single machine. Nx can do it. Bazel can do it (which Nx borrows some ideas from). Turbo can't. This is where the perf gains are for larger repos. See [this benchmark](https://github.com/vsavkin/interstellar) to learn more.
 
 
 ## Dev ergonomics & Staying out of your way
@@ -56,7 +59,7 @@ Run `nx build crew --skip-nx-cache` and `turbo run build --scope=crew --force`:
 
 Nx doesn't change your terminal output. Spinners, animations, colors are the same whether you use Nx or not (we instrument Node.js to get this result). What is also important is that when you restore things from cache, Nx will replay the terminal output identical to the one you would have had you run the command.
 
-Examine Turbo's output: no spinners, no animations, no colors. It's Travis CI circa 2000. Pretty much anything you run with Turbo looks different (and a lot worse, to be honest) from running the same command without Turbo.
+Examine Turbo's output: no spinners, no animations, no colors. Pretty much anything you run with Turbo looks different (and a lot worse, to be honest) from running the same command without Turbo.
 
 A lot of Nx users don't even know they use Nx, or even what Nx is. Things they run look the same, they just got faster.
 
