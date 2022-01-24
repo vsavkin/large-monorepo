@@ -3,7 +3,6 @@ const path = require('path');
 const os = require('os');
 
 const NUMBER_OF_RUNS = 10;
-const PARALLEL = 3;
 
 function message(m) {
   console.log('------------------------');
@@ -12,9 +11,10 @@ function message(m) {
 }
 
 function cleanFolders() {
-  cp.execSync(
-    'rm -rf apps/crew/.next && rm -rf apps/flight-simulator/.next && rm -rf apps/navigation/.next && rm -rf apps/ticket-booking/.next && rm -rf apps/warp-drive-manager/.next'
-  );
+  // uncomment this to remove all artifacts after every run
+  // cp.execSync(
+  //   'rm -rf apps/crew/.next && rm -rf apps/flight-simulator/.next && rm -rf apps/navigation/.next && rm -rf apps/ticket-booking/.next && rm -rf apps/warp-drive-manager/.next'
+  // );
 }
 
 function spawnSync(cmd, args) {
@@ -26,16 +26,16 @@ function spawnSync(cmd, args) {
       os.platform() === 'win32' ? cmd + '.cmd' : cmd
     ),
     args,
-    {stdio: 'inherit'}
+    {stdio: 'inherit', env: {...process.env, NX_TASKS_RUNNER_DYNAMIC_OUTPUT: 'false'}}
   );
 }
 
 message('prepping turbo');
 // prep turbo
-spawnSync('turbo', ['run', 'build', `--concurrency=${PARALLEL}`]);
+spawnSync('turbo', ['run', 'build', `--concurrency=3`]);
 // appears to be a bug in turbo where it only caches some tasks on the second run
 // let's run it twice to make sure turbo is able to cache everything :)
-spawnSync('turbo', ['run', 'build', `--concurrency=${PARALLEL}`]);
+spawnSync('turbo', ['run', 'build', `--concurrency=3`]);
 
 message('prepping nx');
 // we don't have to run it twice :)
@@ -43,15 +43,15 @@ spawnSync('nx', ['run-many', '--target=build', '--all']);
 
 message('prepping lage');
 // we don't have to run it twice :)
-spawnSync('lage', ['build', '--concurrency', PARALLEL]);
+spawnSync('lage', ['build', '--concurrency', 3]);
 
 
 message(`running turbo ${NUMBER_OF_RUNS} times`);
 let turboTime = 0;
 for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
-  // cleanFolders();
+  cleanFolders();
   const b = new Date();
-  spawnSync('turbo', ['run', 'build', `--concurrency=${PARALLEL}`]);
+  spawnSync('turbo', ['run', 'build', `--concurrency=10`]);
   const a = new Date();
   turboTime += a.getTime() - b.getTime();
   console.log(`The command ran in ${a.getTime() - b.getTime()}ms`);
@@ -61,9 +61,9 @@ const averageTurboTime = turboTime / NUMBER_OF_RUNS;
 message(`running nx ${NUMBER_OF_RUNS} times`);
 let nxTime = 0;
 for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
-  // cleanFolders();
+  cleanFolders();
   const b = new Date();
-  spawnSync('nx', ['run-many', '--target=build', '--all', '--parallel', PARALLEL]);
+  spawnSync('nx', ['run-many', '--target=build', '--all', '--parallel', 10]);
   const a = new Date();
   nxTime += a.getTime() - b.getTime();
   console.log(`The command ran in ${a.getTime() - b.getTime()}ms`);
@@ -73,9 +73,9 @@ const averageNxTime = nxTime / NUMBER_OF_RUNS;
 message(`running lage ${NUMBER_OF_RUNS} times`);
 let lageTime = 0;
 for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
-  // cleanFolders();
+  cleanFolders();
   const b = new Date();
-  spawnSync('lage', ['build', '--concurrency', PARALLEL]);
+  spawnSync('lage', ['build', '--concurrency', 10]);
   const a = new Date();
   lageTime += a.getTime() - b.getTime();
   console.log(`The command ran in ${a.getTime() - b.getTime()}ms`);
