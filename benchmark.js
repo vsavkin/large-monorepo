@@ -26,7 +26,7 @@ function spawnSync(cmd, args) {
       os.platform() === 'win32' ? cmd + '.cmd' : cmd
     ),
     args,
-    {stdio: 'inherit', env: {...process.env, NX_TASKS_RUNNER_DYNAMIC_OUTPUT: 'false'}}
+    { stdio: 'inherit', env: { ...process.env, NX_TASKS_RUNNER_DYNAMIC_OUTPUT: 'false' } }
   );
 }
 
@@ -87,5 +87,5 @@ message('results');
 console.log(`average turbo time is: ${averageTurboTime}`);
 console.log(`average nx time is: ${averageNxTime}`);
 console.log(`average lage time is: ${averageLageTime}`);
-console.log(`nx is ${averageTurboTime / averageNxTime}x faster`);
-console.log(`nx is ${averageLageTime / averageNxTime}x faster`);
+console.log(`nx is ${averageTurboTime / averageNxTime}x faster than Turbo`);
+console.log(`nx is ${averageLageTime / averageNxTime}x faster than Lage`);

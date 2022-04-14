@@ -13,31 +13,24 @@ Combined there are about 26k components. It's a lot of components, but they are 
 
 The repo has both Nx and Turbo enabled. They don't affect each other. You can remove one without affecting the other one.
 
-## January 10 update
 
-Kenneth Chau submitted a PR adding [Lage](https://github.com/microsoft/lage) to the benchmark (Thank you, Kenneth!). Lage is a robust tool used to manage a lot of repos at Microsoft. It's also the tool that heavily influenced the design of Turborepo.
-
-Kenneth also made some changes to the repo making the Turborepo version faster (by removing the `**` from the workspaces configuration in `package.json`). You can decide whether this configuration makes sense for you or not, but we've updated the numbers to the ones using the fastest version of the Turborepo setup.
-
-
-## Benchmarking it
+## Benchmarking it (April 14, 2022)
 
 Run `npm run benchmark`. The benchmark will warm the cache of both Turbo and Nx. We benchmark how quickly Turbo/Nx can figure out what needs to be restored from the cache and restores it.
 
-These are the numbers using the latest MBP machine (Jan 10 version):
-- average turbo time is: 1574.1
-- average nx time is: 284
-- average lage time is: 4698.5
-- nx is 5.5426056338028165x faster than Turborepo
-- nx is 16.544014084507044x faster than Lage
+These are the numbers using the latest MBP machine (April 14 version):
+- average turbo time is: 3383.8 
+- average nx time is: 237.7
+- average lage time is: 3732
+- nx is 14.235591081194785x faster than Turbo
+- nx is 15.700462768195205x faster than Lage
 
-If you change the workspaces configuration to include `**`, Nx will be 9.4 times faster than Turbo.
 
 ### Why is Nx faster than Turbo
 
 Nx is in many ways akin to React in that it's doing tree diffing when restoring files from the cache. If the right files are in the right place, Nx won't touch them. Turbo blows everything away every time. Nx's version isn't just faster, it's also more useful (again similarly to tree diffing in React). Blowing everything away on every restoration means that if any tools watch the folders (which is common when you build large apps or build microfrontends), they are going to get confused or triggered for no reason. This is similar to how recreating the DOM from scratch isn't just slower, but results in worse UX.
 
-If you remove the folders before every invocation (Nx will have to recreate all the folders the same way, so its smartness doesn't help it), Nx is still 1.9 times faster than Turbo. So depending on the state of your repo invoking Nx will be from 1.9 times to 5.5 times faster than invoking Turbo (on a mac).
+If you remove the folders before every invocation (Nx will have to recreate all the folders the same way, so its smartness doesn't help it), Nx is still 4.5 times faster than Turbo. So depending on the state of your repo invoking Nx will be from 4.5 times to 14.2 times faster than invoking Turbo (on a mac).
 
 Is Nx always faster? No. Nx uses Node.js, so it takes about 70ms (on a mac) to boot, regardless of what you do. You build 1000 projects, takes 70ms. You build 1 project, it takes 70ms. If you have a repo with say 10 files in it, running Turbo will likely be faster because it boots faster.
 

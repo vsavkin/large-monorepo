@@ -1,0 +1,30 @@
+{
+  "pipeline": {
+    "build": {},
+    "crew#build": {
+      "outputs": [
+        ".next/**"
+      ]
+    },
+    "flight-simulator#build": {
+      "outputs": [
+        ".next/**"
+      ]
+    },
+    "navigation#build": {
+      "outputs": [
+        ".next/**"
+      ]
+    },
+    "ticket-booking#build": {
+      "outputs": [
+        ".next/**"
+      ]
+    },
+    "warp-drive-manager#build": {
+      "outputs": [
+        ".next/**"
+      ]
+    }
+  }
+}
