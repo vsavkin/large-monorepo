@@ -17,20 +17,20 @@ ordinary. And, the bigger the repo, the bigger the difference in performance bet
 The repo has Nx, Turbo, Lerna and Lage enabled. They don't affect each other. You can remove one without affecting the
 other one.
 
-## Benchmark & Results (UPDATED May 24, 2022)
+## Benchmark & Results (UPDATED June 7, 2022)
 
 Run `npm run benchmark`. The benchmark will warm the cache of all the tools. We benchmark how quickly
 Turbo/Nx/Lage/Lerna can figure out what needs to be restored from the cache and restores it.
 
-These are the numbers using the latest MBP machine (May 24 version):
+These are the numbers using the latest MBP machine (June 7 version):
 
-* average lage time is: 10257.4
-* average turbo time is: 1495.2
-* average lerna (powered by nx) time is: 288.1
-* average nx time is: 253.9
-* nx is 40.39936983064198x faster than lage
-* nx is 5.8889326506498625x faster than turbo
-* nx is 1.1346987002756992x faster than lerna (powered by nx)
+* average lage time is: 10203.6
+* average turbo time is: 1532.3
+* average lerna (powered by nx) time is: 272.2
+* average nx time is: 194.8
+* nx is 52.379876796714576x faster than lage
+* nx is 7.866016427104722x faster than turbo
+* nx is 1.3973305954825461x faster than lerna (powered by nx)
 
 ### Why is Nx faster than Turbo
 
@@ -42,8 +42,8 @@ to get confused or triggered for no reason. This is similar to how recreating th
 but results in worse UX.
 
 If you remove the folders before every invocation (Nx will have to recreate all the folders the same way, so its
-smartness doesn't help it), Nx is still 1.6 times faster than Turbo. So depending on the state of your repo invoking Nx
-will be from 1.6 times to 5.8 times faster than invoking Turbo (on a mac).
+smartness doesn't help it), Nx is still 2.2 times faster than Turbo. So depending on the state of your repo invoking Nx
+will be from 2.2 times to 7.8 times faster than invoking Turbo (on a mac).
 
 Is Nx always faster? No. Nx uses Node.js, so it takes about 70ms (on a mac) to boot, regardless of what you do. You
 build 1000 projects, takes 70ms. You build 1 project, it takes 70ms. If you have a repo with say 10 files in it, running
