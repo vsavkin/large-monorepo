@@ -30,24 +30,15 @@ function spawnSync(cmd, args) {
   );
 }
 
+
+
+
 message('prepping turbo');
 // prep turbo
 spawnSync('turbo', ['run', 'build', `--concurrency=3`]);
 // appears to be a bug in turbo where it only caches some tasks on the second run
 // let's run it twice to make sure turbo is able to cache everything :)
 spawnSync('turbo', ['run', 'build', `--concurrency=3`]);
-
-message('prepping nx');
-// we don't have to run it twice :)
-spawnSync('nx', ['run-many', '--target=build', '--all']);
-
-message('prepping lage');
-// we don't have to run it twice :)
-spawnSync('lage', ['build', '--concurrency', 3]);
-
-message('prepping lerna');
-spawnSync('lerna', ['run', 'build', `--concurrency=3`]);
-
 
 message(`running turbo ${NUMBER_OF_RUNS} times`);
 let turboTime = 0;
@@ -61,6 +52,10 @@ for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
 }
 const averageTurboTime = turboTime / NUMBER_OF_RUNS;
 
+message('prepping nx');
+// we don't have to run it twice :)
+spawnSync('nx', ['run-many', '--target=build', '--all']);
+
 message(`running nx ${NUMBER_OF_RUNS} times`);
 let nxTime = 0;
 for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
@@ -73,6 +68,8 @@ for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
 }
 const averageNxTime = nxTime / NUMBER_OF_RUNS;
 
+message('prepping lerna');
+spawnSync('lerna', ['run', 'build', `--concurrency=3`]);
 message(`running lerna ${NUMBER_OF_RUNS} times`);
 let lernaTime = 0;
 for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
@@ -84,6 +81,10 @@ for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
   console.log(`The command ran in ${a.getTime() - b.getTime()}ms`);
 }
 const averageLernaTime = lernaTime / NUMBER_OF_RUNS;
+
+
+message('prepping lage');
+spawnSync('lage', ['build', '--concurrency', 3]);
 
 message(`running lage ${NUMBER_OF_RUNS} times`);
 let lageTime = 0;
