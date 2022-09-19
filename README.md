@@ -17,20 +17,20 @@ ordinary. And, the bigger the repo, the bigger the difference in performance bet
 The repo has Nx, Turbo, Lerna and Lage enabled. They don't affect each other. You can remove one without affecting the
 other one.
 
-## Benchmark & Results (UPDATED September 6, 2022)
+## Benchmark & Results (UPDATED September 19, 2022)
 
 Run `npm run benchmark`. The benchmark will warm the cache of all the tools. We benchmark how quickly
 Turbo/Nx/Lage/Lerna can figure out what needs to be restored from the cache and restores it.
 
 These are the numbers using the latest MBP machine (Sep 6 version):
 
-* average lage time is: 10241.5
-* average turbo time is: 1563
-* average lerna (powered by nx) time is: 311.6
-* average nx time is: 200.5
-* nx is 51.079800498753116x faster than lage
-* nx is 7.795511221945137x faster than turbo
-* nx is 1.5541147132169577x faster than lerna (powered by nx)
+* average lage time is: 1149.3
+* average turbo time is: 1622.5
+* average lerna (powered by nx) time is: 338.3
+* average nx time is: 215.4
+* nx is 5.335654596100278x faster than lage
+* nx is 7.532497678737233x faster than turbo
+* nx is 1.5705663881151346x faster than lerna (powered by nx)
 
 ### Why is Nx faster than Turbo
 
@@ -43,7 +43,7 @@ but results in worse UX.
 
 If you remove the folders before every invocation (Nx will have to recreate all the folders the same way, so its
 smartness doesn't help it), Nx is still 2.2 times faster than Turbo. So depending on the state of your repo invoking Nx
-will be from 2.2 times to 7.8 times faster than invoking Turbo (on a mac).
+will be from 2.2 times to 7.5 times faster than invoking Turbo (on a mac).
 
 Is Nx always faster? No. Nx uses Node.js, so it takes about 70ms (on a mac) to boot, regardless of what you do. You
 build 1000 projects, takes 70ms. You build 1 project, it takes 70ms. If you have a repo with say 10 files in it, running
