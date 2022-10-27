@@ -17,6 +17,18 @@ ordinary. And, the bigger the repo, the bigger the difference in performance bet
 The repo has Nx, Turbo, Lerna and Lage enabled. They don't affect each other. You can remove one without affecting the
 other one.
 
+## Benchmark & Results (Oct 27)
+
+We will keep the September numbers cause it looks like Turbo 1.6 is broken. Rerunning `turbo run build` several times (which should always result in cache hits) sometimes results in cache misses. Once Turbo is fixed, we will update the numbers.
+
+* average lage time is: 1281.8
+* average turbo time is: 11010.8
+* average lerna (powered by nx) time is: 419
+* average nx time is: 276.2
+* nx is 4.640839971035482x faster than lage
+* nx is 39.865314989138305x faster than turbo
+* nx is 1.5170166545981174x faster than lerna (powered by nx)
+
 ## Benchmark & Results (UPDATED September 19, 2022)
 
 Run `npm run benchmark`. The benchmark will warm the cache of all the tools. We benchmark how quickly
