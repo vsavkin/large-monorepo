@@ -10,10 +10,14 @@
     "benchmark": "node benchmark.js"
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "17.2.0",
+    "@commitlint/cli": "17.2.0",
+    "commitlint-plugin-conventional-jira": "1.0.4",
+    "commitlint-config-yarn-scopes": "2.0.0",
     "nx": "15.0.0",
     "lerna": "6.0.1",
     "lage": "1.9.2",
     "turbo": "1.6.1",
-    "typescript": "4.5.2"
+    "typescript": "4.5.2",
   }
 }
