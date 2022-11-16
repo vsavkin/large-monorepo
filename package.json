@@ -12,12 +12,54 @@
   "devDependencies": {
     "@commitlint/config-conventional": "17.2.0",
     "@commitlint/cli": "17.2.0",
+    "@qiwi/multi-semantic-release": "6.5.1",
+    "@semantic-release/git": "10.0.1",
+    "@feki.de/semantic-release-yarn": "1.0.1",
     "commitlint-plugin-conventional-jira": "1.0.4",
     "commitlint-config-yarn-scopes": "2.0.0",
     "nx": "15.0.0",
     "lerna": "6.0.1",
     "lage": "1.9.2",
     "turbo": "1.6.1",
-    "typescript": "4.5.2",
+    "typescript": "4.5.2"
+  },
+  "multi-release": {
+    "ignorePrivate": false
+  },
+  "release": {
+    "ci": false,
+    "debug": true,
+    "plugins": [
+      ["@semantic-release/commit-analyzer", {
+        "preset": "conventionalcommits",
+        "presetConfig": {
+          "issuePrefixes": ["TP-"],
+          "issueUrlFormat": "https://fpwd.atlassian.net/browse/{{prefix}}{{id}}"
+        }
+      }],
+      ["@semantic-release/release-notes-generator", {
+        "preset": "conventionalcommits",
+        "presetConfig": {
+          "issuePrefixes": ["TP-"],
+          "issueUrlFormat": "https://fpwd.atlassian.net/browse/{{prefix}}{{id}}"
+        },
+        "writerConfig": {
+          "issuePrefixes": ["TP-"],
+          "issueUrlFormat": "https://fpwd.atlassian.net/browse/{{prefix}}{{id}}"
+        }
+      }],
+      ["@feki.de/semantic-release-yarn", {
+        "npmPublish": false
+      }],
+      ["@semantic-release/git", {
+        "message": "chore(<%= nextRelease.gitTag.substring(0,nextRelease.gitTag.indexOf('@')) %>): Release <%= nextRelease.version %>",
+        "assets": ["package.json"]
+      }],
+      "@semantic-release/github"
+    ],
+    "branches": [
+      "main",
+      "develop"
+    ]
   }
 }
