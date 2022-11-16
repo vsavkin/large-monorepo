@@ -6,7 +6,7 @@ export interface Alert0Props {}
 export function Alert0(props: Alert0Props) {
   return (
     <div>
-      <h1>Hi to Alert0!</h1>
+      <h1>Yo to Alert0!</h1>
     </div>
   );
 }
