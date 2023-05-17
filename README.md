@@ -1,4 +1,4 @@
-# Benchmarking Nx, Turbo, and Lerna
+# Benchmarking Nx, Turbo, and Lage
 
 Recording:
 
@@ -14,52 +14,37 @@ Combined there are about 26k components. It's a lot of components, but they are 
 size enterprise repo. A lot of our clients have repos that are 10x bigger than this, so this repo isn't something out or
 ordinary. And, the bigger the repo, the bigger the difference in performance between Nx and Turbo.
 
-The repo has Nx, Turbo, Lerna and Lage enabled. They don't affect each other. You can remove one without affecting the
+The repo has Nx, Turbo, and Lage enabled. They don't affect each other. You can remove one without affecting the
 other one.
 
-## Benchmark & Results (Oct 27)
+## Benchmark & Results (May 31)
 
-We will keep the September numbers cause it looks like Turbo 1.6 is broken. Rerunning `turbo run build` several times (which should always result in cache hits) sometimes results in cache misses. Once Turbo is fixed, we will update the numbers.
+`npm run benchmark` runs the benchmark. The following numbers produced by an M1Max MBP. On a Windows machine all the tools will get slower, and the delta between Nx and Turbo/Lage will get bigger.
 
-* average lage time is: 1281.8
-* average turbo time is: 11010.8
-* average lerna (powered by nx) time is: 419
-* average nx time is: 276.2
-* nx is 4.640839971035482x faster than lage
-* nx is 39.865314989138305x faster than turbo
-* nx is 1.5170166545981174x faster than lerna (powered by nx)
+* **average nx time is: 149.3**
+* **average turbo time is: 907.3**
+* **average lage time is: 1084.4**
+* **nx is 6.08x faster than turbo**
+* **nx is 7.26x faster than lage**
 
-## Benchmark & Results (UPDATED September 19, 2022)
+Numbers from May 19:
 
-Run `npm run benchmark`. The benchmark will warm the cache of all the tools. We benchmark how quickly
-Turbo/Nx/Lage/Lerna can figure out what needs to be restored from the cache and restores it.
+* average nx time is: 172.8
+* average turbo time is: 1134.1
+* average lage time is: 1109.9
 
-These are the numbers using the latest MBP machine (Sep 6 version):
-
-* average lage time is: 1149.3
-* average turbo time is: 1622.5
-* average lerna (powered by nx) time is: 338.3
-* average nx time is: 215.4
-* nx is 5.335654596100278x faster than lage
-* nx is 7.532497678737233x faster than turbo
-* nx is 1.5705663881151346x faster than lerna (powered by nx)
 
 ### Why is Nx faster than Turbo
 
-Nx is in many ways akin to React in that it's doing tree diffing when restoring files from the cache. If the right files
-are in the right place, Nx won't touch them. Turbo blows everything away every time. Nx's version isn't just faster,
-it's also more useful (again similarly to tree diffing in React). Blowing everything away on every restoration means
-that if any tools watch the folders (which is common when you build large apps or build microfrontends), they are going
-to get confused or triggered for no reason. This is similar to how recreating the DOM from scratch isn't just slower,
-but results in worse UX.
+Nx uses several optimizations to minimize the amount of computation required. For instance, it stores information about 
+the repository on disk to be able to recompute only what is needed. It runs a daemon process that gets all the necessary
+data structures ready before the developer invokes a command. And the data structures are updated incrementally, usually
+in just a few milliseconds.
 
-If you remove the folders before every invocation (Nx will have to recreate all the folders the same way, so its
-smartness doesn't help it), Nx is still 2.2 times faster than Turbo. So depending on the state of your repo invoking Nx
-will be from 2.2 times to 7.5 times faster than invoking Turbo (on a mac).
-
-Is Nx always faster? No. Nx uses Node.js, so it takes about 70ms (on a mac) to boot, regardless of what you do. You
-build 1000 projects, takes 70ms. You build 1 project, it takes 70ms. If you have a repo with say 10 files in it, running
-Turbo will likely be faster because it boots faster.
+Is Nx always faster? No. The performance sensitive parts of Nx are written in Rust, but it is all wrapped into a Node.js
+process. Loading Node.js takes about 70ms (on a mac), regardless of what you do. You build 1000 projects, takes 70ms. 
+You build 1 project, it takes 70ms. If you have a repo with say 10 files in it, running Turbo will likely be faster 
+because it boots faster.
 
 Yarn, npm, pnpm have a similar boot time to Nx, and folks don't mind. And, of course, it's worth asking whether a
 high-performance build tool is even required for a repo with 10 files in it.
@@ -69,8 +54,7 @@ high-performance build tool is even required for a repo with 10 files in it.
 The cache restoration Turborepo provides is likely to be fast enough for a lot of small and mid-size repos.
 What matters more is the ability to distribute any command across say 50 machines while
 preserving the dev ergonomics of running it on a single machine. Nx can do it. Bazel can do it (which Nx
-borrows some
-ideas from). Turbo can't. This is where the perf gains are for larger repos.
+borrows some ideas from). Turbo can't. This is where the perf gains are for larger repos.
 See [this benchmark](https://github.com/vsavkin/interstellar) to learn more.
 
 ## Dev ergonomics & Staying out of your way
@@ -95,7 +79,7 @@ A lot of Nx users don't even know they use Nx, or even what Nx is. Things they r
 
 Lerna 5.1 adds the ability to use Nx for task orchestration and computation caching (in addition to `p-map` and `p-queue`, which it had before).
 Given that Lerna uses Nx to run tasks, unsurprisingly, the numbers for
-Lerna and Nx are very similar--it's the same powerful task orchestrator under the hood. This also means that Lerna supports
+Lerna and Nx will be very similar--it's the same powerful task orchestrator under the hood. This also means that Lerna supports
 distributed tasks execution (see above) and that it captures terminal output correctly.
 
 ## Found an issue? Send a PR.

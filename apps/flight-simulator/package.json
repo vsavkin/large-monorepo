@@ -36,14 +36,5 @@
     "@types/react": "17.0.37",
     "next-transpile-modules": "9.0.0",
     "typescript": "4.5.2"
-  },
-  "nx": {
-    "targets": {
-      "build": {
-        "outputs": [
-          "apps/flight-simulator/.next"
-        ]
-      }
-    }
   }
 }

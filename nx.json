@@ -10,5 +10,10 @@
         "parallel": 3
       }
     }
+  },
+  "targetDefaults": {
+    "build": {
+      "outputs": ["{projectRoot}/.next"]
+    }
   }
 }

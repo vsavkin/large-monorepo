@@ -34,10 +34,6 @@ function spawnSync(cmd, args) {
 
 
 message('prepping turbo');
-// prep turbo
-spawnSync('turbo', ['run', 'build', `--concurrency=3`]);
-// appears to be a bug in turbo where it only caches some tasks on the second run
-// let's run it twice to make sure turbo is able to cache everything :)
 spawnSync('turbo', ['run', 'build', `--concurrency=3`]);
 
 message(`running turbo ${NUMBER_OF_RUNS} times`);
@@ -53,35 +49,19 @@ for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
 const averageTurboTime = turboTime / NUMBER_OF_RUNS;
 
 message('prepping nx');
-// we don't have to run it twice :)
-spawnSync('nx', ['run-many', '--target=build', '--all']);
+spawnSync('nx', ['run-many', '-t', 'build']);
 
 message(`running nx ${NUMBER_OF_RUNS} times`);
 let nxTime = 0;
 for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
   cleanFolders();
   const b = new Date();
-  spawnSync('nx', ['run-many', '--target=build', '--all', '--parallel', 10]);
+  spawnSync('nx', ['run-many', '-t', 'build', '--parallel', 10]);
   const a = new Date();
   nxTime += a.getTime() - b.getTime();
   console.log(`The command ran in ${a.getTime() - b.getTime()}ms`);
 }
-const averageNxTime = nxTime / NUMBER_OF_RUNS;
-
-message('prepping lerna');
-spawnSync('lerna', ['run', 'build', `--concurrency=3`]);
-message(`running lerna ${NUMBER_OF_RUNS} times`);
-let lernaTime = 0;
-for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
-  cleanFolders();
-  const b = new Date();
-  spawnSync('lerna', ['run', 'build', `--concurrency=10`]);
-  const a = new Date();
-  lernaTime += a.getTime() - b.getTime();
-  console.log(`The command ran in ${a.getTime() - b.getTime()}ms`);
-}
-const averageLernaTime = lernaTime / NUMBER_OF_RUNS;
-
+  const averageNxTime = nxTime / NUMBER_OF_RUNS;
 
 message('prepping lage');
 spawnSync('lage', ['build', '--concurrency', 3]);
@@ -102,9 +82,7 @@ const averageLageTime =
 message('results');
 console.log(`average lage time is: ${averageLageTime}`);
 console.log(`average turbo time is: ${averageTurboTime}`);
-console.log(`average lerna (powered by nx) time is: ${averageLernaTime}`);
 console.log(`average nx time is: ${averageNxTime}`);
 
 console.log(`nx is ${averageLageTime / averageNxTime}x faster than lage`);
 console.log(`nx is ${averageTurboTime / averageNxTime}x faster than turbo`);
-console.log(`nx is ${averageLernaTime / averageNxTime}x faster than lerna (powered by nx)`);
