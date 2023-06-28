@@ -7,12 +7,13 @@
     "packages/*/*"
   ],
   "scripts": {
-    "benchmark": "node benchmark.js"
+    "benchmark": "node benchmark.js",
+    "benchmark-no-daemon": "node benchmark.js no-daemon"
   },
   "devDependencies": {
-    "nx": "16.3.0",
-    "lage": "2.6.2",
-    "turbo": "1.9.9",
+    "nx": "16.5.0-beta.0",
+    "lage": "2.7.3",
+    "turbo": "1.10.6",
     "typescript": "4.5.2"
   }
 }

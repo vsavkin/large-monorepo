@@ -2,6 +2,9 @@ const cp = require('child_process');
 const path = require('path');
 const os = require('os');
 
+let noDaemon = process.argv[2] === 'no-daemon'
+
+
 const NUMBER_OF_RUNS = 10;
 
 function message(m) {
@@ -26,15 +29,22 @@ function spawnSync(cmd, args) {
       os.platform() === 'win32' ? cmd + '.cmd' : cmd
     ),
     args,
-    { stdio: 'inherit', env: { ...process.env, NX_TASKS_RUNNER_DYNAMIC_OUTPUT: 'false' } }
+    { stdio: 'inherit', env: { ...process.env, NX_TASKS_RUNNER_DYNAMIC_OUTPUT: 'false', NX_DAEMON: !noDaemon } }
   );
 }
 
 
 
+if (noDaemon) {
+  message('Running without daemons')
+}
 
 message('prepping turbo');
-spawnSync('turbo', ['run', 'build', `--concurrency=3`]);
+let turboArgs = ['run', 'build', `--concurrency=3`]
+if (noDaemon) {
+  turboArgs.push('--no-daemon')
+}
+spawnSync('turbo', turboArgs);
 
 message(`running turbo ${NUMBER_OF_RUNS} times`);
 let turboTime = 0;
