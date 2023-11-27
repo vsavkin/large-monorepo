@@ -2,8 +2,7 @@ const cp = require('child_process');
 const path = require('path');
 const os = require('os');
 
-let noDaemon = process.argv[2] === 'no-daemon'
-
+let noDaemon = process.argv[2] === 'no-daemon';
 
 const NUMBER_OF_RUNS = 10;
 
@@ -29,18 +28,23 @@ function spawnSync(cmd, args) {
       os.platform() === 'win32' ? cmd + '.cmd' : cmd
     ),
     args,
-    { stdio: 'inherit', env: { ...process.env, NX_TASKS_RUNNER_DYNAMIC_OUTPUT: 'false', NX_DAEMON: !noDaemon } }
+    {
+      stdio: 'inherit',
+      env: {
+        ...process.env,
+        NX_TASKS_RUNNER_DYNAMIC_OUTPUT: 'false',
+        NX_DAEMON: !noDaemon,
+      },
+    }
   );
 }
 
-
-
 if (noDaemon) {
-  message('Running without daemons')
+  message('Running without daemons');
 }
 
 message('prepping turbo');
-let turboArgs = ['run', 'build', `--concurrency=3`]
+let turboArgs = ['run', 'build', `--concurrency=10`]
 if (noDaemon) {
   turboArgs.push('--no-daemon')
 }
@@ -51,7 +55,7 @@ let turboTime = 0;
 for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
   cleanFolders();
   const b = new Date();
-  spawnSync('turbo', ['run', 'build', `--concurrency=10`]);
+  spawnSync('turbo', turboArgs);
   const a = new Date();
   turboTime += a.getTime() - b.getTime();
   console.log(`The command ran in ${a.getTime() - b.getTime()}ms`);
@@ -71,7 +75,7 @@ for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
   nxTime += a.getTime() - b.getTime();
   console.log(`The command ran in ${a.getTime() - b.getTime()}ms`);
 }
-  const averageNxTime = nxTime / NUMBER_OF_RUNS;
+const averageNxTime = nxTime / NUMBER_OF_RUNS;
 
 message('prepping lage');
 spawnSync('lage', ['build', '--concurrency', 3]);
