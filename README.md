@@ -17,50 +17,57 @@ ordinary. And, the bigger the repo, the bigger the difference in performance bet
 The repo has Nx, Turbo, and Lage enabled. They don't affect each other. You can remove one without affecting the
 other one.
 
-## Benchmark & Results (June 28)
+## Bencharmk & Results (Dec 04)
 
-`npm run benchmark` runs the benchmark. The following numbers produced by an M1Max MBP. On a Windows machine all the tools will get slower, and the delta between Nx and Turbo/Lage will get bigger.
+`npm run benchmark` runs the benchmark. The following numbers produced by an M1Max MBP on macOS 13 (Ventura). On a Windows machine all the tools will get slower, and the delta between Nx and Turbo/Lage will get bigger.
 
-* **average nx time is: 142.7**
-* **average turbo time is: 900.6**
-* **average lage time is: 1378.4**
-* **nx is 6.31x faster than turbo**
-* **nx is 9.66x faster than lage**
+- **average lage time is: 1228.8**
+- **average turbo time is: 913.4**
+- **average nx time is: 197.3**
+- **nx is 6.23x faster than lage**
+- **nx is 4.63x faster than turbo**
 
-
-
-Another performance mark that we're going to start tracking is commands run without their respective daemon. This would represent running the tools in an CI environment. 
+Another performance mark that we're going to start tracking is commands run without their respective daemon. This would represent running the tools in an CI environment.
 These can be run with `npm run benchmark-no-daemon`
 
-* **average nx time is: 1258.2**
-* **average turbo time is: 1285.6**
-* **average lage time is: 1213.5**
+# TODO
 
+#### Benchmark & Results June 28
 
+- average nx time is: 142.7
+- average turbo time is: 900.6
+- average lage time is: 1378.4
+- nx is 6.31x faster than turbo
+- nx is 9.66x faster than lage
 
-Numbers from May 31: 
+##### No daemon
 
-* average nx time is: 149.3
-* average turbo time is: 907.3
-* average lage time is: 1084.4
+- average nx time is: 1258.2
+- average turbo time is: 1285.6
+- average lage time is: 1213.5
 
-Numbers from May 19:
+#### Numbers from May 31 (M1 Pro Ventura):
 
-* average nx time is: 172.8
-* average turbo time is: 1134.1
-* average lage time is: 1109.9
+- average nx time is: 149.3
+- average turbo time is: 907.3
+- average lage time is: 1084.4
 
+#### Numbers from May 19:
+
+- average nx time is: 172.8
+- average turbo time is: 1134.1
+- average lage time is: 1109.9
 
 ### Why is Nx faster than Turbo
 
-Nx uses several optimizations to minimize the amount of computation required. For instance, it stores information about 
+Nx uses several optimizations to minimize the amount of computation required. For instance, it stores information about
 the repository on disk to be able to recompute only what is needed. It runs a daemon process that gets all the necessary
 data structures ready before the developer invokes a command. And the data structures are updated incrementally, usually
 in just a few milliseconds.
 
 Is Nx always faster? No. The performance sensitive parts of Nx are written in Rust, but it is all wrapped into a Node.js
-process. Loading Node.js takes about 70ms (on a mac), regardless of what you do. You build 1000 projects, takes 70ms. 
-You build 1 project, it takes 70ms. If you have a repo with say 10 files in it, running Turbo will likely be faster 
+process. Loading Node.js takes about 70ms (on a mac), regardless of what you do. You build 1000 projects, takes 70ms.
+You build 1 project, it takes 70ms. If you have a repo with say 10 files in it, running Turbo will likely be faster
 because it boots faster.
 
 Yarn, npm, pnpm have a similar boot time to Nx, and folks don't mind. And, of course, it's worth asking whether a
