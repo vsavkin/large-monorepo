@@ -21,16 +21,20 @@ other one.
 
 `npm run benchmark` runs the benchmark. The following numbers produced by an M1Max MBP on macOS 13 (Ventura). On a Windows machine all the tools will get slower, and the delta between Nx and Turbo/Lage will get bigger.
 
-- **average lage time is: 1228.8**
-- **average turbo time is: 913.4**
-- **average nx time is: 197.3**
-- **nx is 6.23x faster than lage**
-- **nx is 4.63x faster than turbo**
+- **average lage time is: 1183.9**
+- **average turbo time is: 1153.8**
+- **average nx time is: 166.83**
+- **nx 7.1x faster than lage**
+- **nx is 6.9x faster than turbo**
+
+### No daemon
 
 Another performance mark that we're going to start tracking is commands run without their respective daemon. This would represent running the tools in an CI environment.
 These can be run with `npm run benchmark-no-daemon`
 
-# TODO
+- average lage time is: 1169.6
+- average turbo time is: 1197.3
+- average nx time is: 1195.1
 
 #### Benchmark & Results June 28
 
