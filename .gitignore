@@ -45,3 +45,5 @@ Thumbs.db
 
 .turbo
 turbo-build.log
+
+.nx/cache
