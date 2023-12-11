@@ -17,33 +17,26 @@ ordinary. And, the bigger the repo, the bigger the difference in performance bet
 The repo has Nx, Turbo, and Lage enabled. They don't affect each other. You can remove one without affecting the
 other one.
 
-## Benchmark & Results (May 31)
+## Benchmark & Results (Dec 2023)
 
-`npm run benchmark` runs the benchmark. The following numbers produced by an M1Max MBP. On a Windows machine all the tools will get slower, and the delta between Nx and Turbo/Lage will get bigger.
+`npm run benchmark` runs the benchmark. The following numbers produced by an M1Pro MBP. On a Windows machine all the tools will get slower, and the delta between Nx and Turbo/Lage will get bigger.
 
-* **average nx time is: 149.3**
-* **average turbo time is: 907.3**
-* **average lage time is: 1084.4**
-* **nx is 6.08x faster than turbo**
-* **nx is 7.26x faster than lage**
-
-Numbers from May 19:
-
-* average nx time is: 172.8
-* average turbo time is: 1134.1
-* average lage time is: 1109.9
-
+- **average lage time is: 1189.5**
+- **average turbo time is: 984.8**
+- **average nx time is: 189.9**
+- **nx is 6.263823064770932x faster than lage**
+- **nx is 5.185887309110058x faster than turbo**
 
 ### Why is Nx faster than Turbo
 
-Nx uses several optimizations to minimize the amount of computation required. For instance, it stores information about 
+Nx uses several optimizations to minimize the amount of computation required. For instance, it stores information about
 the repository on disk to be able to recompute only what is needed. It runs a daemon process that gets all the necessary
 data structures ready before the developer invokes a command. And the data structures are updated incrementally, usually
 in just a few milliseconds.
 
 Is Nx always faster? No. The performance sensitive parts of Nx are written in Rust, but it is all wrapped into a Node.js
-process. Loading Node.js takes about 70ms (on a mac), regardless of what you do. You build 1000 projects, takes 70ms. 
-You build 1 project, it takes 70ms. If you have a repo with say 10 files in it, running Turbo will likely be faster 
+process. Loading Node.js takes about 70ms (on a mac), regardless of what you do. You build 1000 projects, takes 70ms.
+You build 1 project, it takes 70ms. If you have a repo with say 10 files in it, running Turbo will likely be faster
 because it boots faster.
 
 Yarn, npm, pnpm have a similar boot time to Nx, and folks don't mind. And, of course, it's worth asking whether a
