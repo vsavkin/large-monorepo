@@ -17,65 +17,24 @@ ordinary. And, the bigger the repo, the bigger the difference in performance bet
 The repo has Nx, Turbo, and Lage enabled. They don't affect each other. You can remove one without affecting the
 other one.
 
-## Bencharmk & Results (Dec 04)
+## Benchmark & Results (May 1)
 
 `npm run benchmark` runs the benchmark. The following numbers produced by an M1Max MBP on macOS 13 (Ventura). On a Windows machine all the tools will get slower, and the delta between Nx and Turbo/Lage will get bigger.
 
-- **average lage time is: 1183.9**
-- **average turbo time is: 1153.8**
-- **average nx time is: 166.83**
-- **nx 7.1x faster than lage**
-- **nx is 6.9x faster than turbo**
-
-### No daemon
-
-Another performance mark that we're going to start tracking is commands run without their respective daemon. This would represent running the tools in an CI environment.
-These can be run with `npm run benchmark-no-daemon`
-
-- average lage time is: 1169.6
-- average turbo time is: 1197.3
-- average nx time is: 1195.1
-
-#### Benchmark & Results June 28
-
-- average nx time is: 142.7
-- average turbo time is: 900.6
-- average lage time is: 1378.4
-- nx is 6.31x faster than turbo
-- nx is 9.66x faster than lage
-
-##### No daemon
-
-- average nx time is: 1258.2
-- average turbo time is: 1285.6
-- average lage time is: 1213.5
-
-#### Numbers from May 31 (M1 Pro Ventura):
-
-- average nx time is: 149.3
-- average turbo time is: 907.3
-- average lage time is: 1084.4
-
-#### Numbers from May 19:
-
-- average nx time is: 172.8
-- average turbo time is: 1134.1
-- average lage time is: 1109.9
+- **average turbo time is: 633.1**
+- **average lage time is: 395.7**
+- **average nx time is: 153.0**
+- **nx is 2.58x faster than lage**
+- **nx is 4.13x faster than turbo**
 
 ### Why is Nx faster than Turbo
 
 Nx uses several optimizations to minimize the amount of computation required. For instance, it stores information about
 the repository on disk to be able to recompute only what is needed. It runs a daemon process that gets all the necessary
 data structures ready before the developer invokes a command. And the data structures are updated incrementally, usually
-in just a few milliseconds.
+in just a few milliseconds. 
 
-Is Nx always faster? No. The performance sensitive parts of Nx are written in Rust, but it is all wrapped into a Node.js
-process. Loading Node.js takes about 70ms (on a mac), regardless of what you do. You build 1000 projects, takes 70ms.
-You build 1 project, it takes 70ms. If you have a repo with say 10 files in it, running Turbo will likely be faster
-because it boots faster.
-
-Yarn, npm, pnpm have a similar boot time to Nx, and folks don't mind. And, of course, it's worth asking whether a
-high-performance build tool is even required for a repo with 10 files in it.
+Although Nx plugins use Node.js, the performance sensitive parts of Nx are written in Rust.
 
 ### Does this performance difference matter in practice?
 
@@ -83,7 +42,7 @@ The cache restoration Turborepo provides is likely to be fast enough for a lot o
 What matters more is the ability to distribute any command across say 50 machines while
 preserving the dev ergonomics of running it on a single machine. Nx can do it. Bazel can do it (which Nx
 borrows some ideas from). Turbo can't. This is where the perf gains are for larger repos.
-See [this benchmark](https://github.com/vsavkin/interstellar) to learn more.
+See [this overview](https://nx.dev/ci/features/distribute-task-execution) and [this benchmark](https://github.com/vsavkin/interstellar) to learn more.
 
 ## Dev ergonomics & Staying out of your way
 
@@ -94,21 +53,14 @@ Run `nx build crew --skip-nx-cache` and `turbo run build --scope=crew --force`:
 
 ![terminal outputs](./readme-assets/turbo-nx-terminal.gif)
 
-Nx doesn't change your terminal output. Spinners, animations, colors are the same whether you use Nx or not (we
-instrument Node.js to get this result). What is also important is that when you restore things from cache, Nx will
+Nx doesn't change your terminal output. Spinners, animations, colors are the same whether you use Nx or not. 
+What is also important is that when you restore things from cache, Nx will
 replay the terminal output identical to the one you would have had you run the command.
 
 Examine Turbo's output: no spinners, no animations, no colors. Pretty much anything you run with Turbo looks different (
 and a lot worse, to be honest) from running the same command without Turbo.
 
 A lot of Nx users don't even know they use Nx, or even what Nx is. Things they run look the same, they just got faster.
-
-## Lerna and Nx
-
-Lerna 5.1 adds the ability to use Nx for task orchestration and computation caching (in addition to `p-map` and `p-queue`, which it had before).
-Given that Lerna uses Nx to run tasks, unsurprisingly, the numbers for
-Lerna and Nx will be very similar--it's the same powerful task orchestrator under the hood. This also means that Lerna supports
-distributed tasks execution (see above) and that it captures terminal output correctly.
 
 ## Found an issue? Send a PR.
 
