@@ -47,3 +47,4 @@ Thumbs.db
 turbo-build.log
 
 .nx/cache
+.nx/workspace-data

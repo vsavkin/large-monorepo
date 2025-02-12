@@ -11,9 +11,9 @@
     "benchmark-no-daemon": "node benchmark.js no-daemon"
   },
   "devDependencies": {
-    "nx": "19.0.0-beta.8",
-    "lage": "2.7.14",
-    "turbo": "1.13.3",
-    "typescript": "4.5.2"
+    "nx": "20.5.0-beta.2",
+    "lage": "2.12.19",
+    "turbo": "2.4.1",
+    "typescript": "5.7.3"
   }
 }
