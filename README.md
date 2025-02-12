@@ -21,11 +21,11 @@ other one.
 
 `npm run benchmark` runs the benchmark. The following numbers produced by an M1Max MBP on macOS 13 (Ventura). On a Windows machine all the tools will get slower, and the delta between Nx and Turbo/Lage will get bigger.
 
-- **average turbo time is: 633.1**
-- **average lage time is: 395.7**
-- **average nx time is: 153.0**
-- **nx is 2.58x faster than lage**
-- **nx is 4.13x faster than turbo**
+- **average lage time is: 1258.6**
+- **average turbo time is: 1432.4**
+- **average nx time is: 191.7**
+- **nx is 6.57x faster than lage**
+- **nx is 7.47x faster than turbo**
 
 ### Why is Nx faster than Turbo
 

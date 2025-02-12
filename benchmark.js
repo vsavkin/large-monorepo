@@ -98,5 +98,5 @@ console.log(`average lage time is: ${averageLageTime}`);
 console.log(`average turbo time is: ${averageTurboTime}`);
 console.log(`average nx time is: ${averageNxTime}`);
 
-console.log(`nx is ${averageLageTime / averageNxTime}x faster than lage`);
-console.log(`nx is ${averageTurboTime / averageNxTime}x faster than turbo`);
+console.log(`nx is ${(averageLageTime / averageNxTime).toFixed(2)}x faster than lage`);
+console.log(`nx is ${(averageTurboTime / averageNxTime).toFixed(2)}x faster than turbo`);
