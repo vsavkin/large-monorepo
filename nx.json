@@ -13,7 +13,9 @@
   },
   "targetDefaults": {
     "build": {
-      "outputs": ["{projectRoot}/.next"]
+      "outputs": [
+        "{projectRoot}/.next"
+      ]
     }
   }
 }
