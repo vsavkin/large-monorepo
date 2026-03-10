@@ -78,20 +78,20 @@ for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
 const averageNxTime = nxTime / NUMBER_OF_RUNS;
 
 message('prepping lage');
-spawnSync('lage', ['build', '--concurrency', 3]);
+spawnSync('lage', ['build', '--concurrency', 3, '--reporter', 'npmLog']);
 
 message(`running lage ${NUMBER_OF_RUNS} times`);
 let lageTime = 0;
 for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
   cleanFolders();
   const b = new Date();
-  spawnSync('lage', ['build', '--concurrency', 10]);
+  spawnSync('lage', ['build', '--concurrency', 10, '--reporter', 'npmLog']);
   const a = new Date();
   lageTime += a.getTime() - b.getTime();
   console.log(`The command ran in ${a.getTime() - b.getTime()}ms`);
 }
 const averageLageTime =
-    lageTime / NUMBER_OF_RUNS;
+  lageTime / NUMBER_OF_RUNS;
 
 message('results');
 console.log(`average lage time is: ${averageLageTime}`);
