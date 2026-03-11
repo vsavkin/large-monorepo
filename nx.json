@@ -11,6 +11,9 @@
       }
     }
   },
+  "tui": {
+    "enabled": false
+  },
   "targetDefaults": {
     "build": {
       "outputs": [
