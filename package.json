@@ -13,8 +13,8 @@
   },
   "devDependencies": {
     "nx": "22.7.0",
-    "lage": "2.14.19",
-    "turbo": "2.8.15",
+    "lage": "2.15.9",
+    "turbo": "2.9.6",
     "typescript": "5.7.3"
   }
 }
