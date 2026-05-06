@@ -2,7 +2,7 @@
   "name": "large-monorepo",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "npm@10.9.2",
+  "packageManager": "pnpm@10.28.2",
   "workspaces": [
     "apps/*",
     "packages/*/*"
