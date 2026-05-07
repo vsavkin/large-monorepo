@@ -1,0 +1,9 @@
+packages:
+  - "apps/*"
+  - "packages/*/*"
+
+linkWorkspacePackages: true
+nodeLinker: hoisted
+
+overrides:
+  nx: link:../nx6/packages/nx

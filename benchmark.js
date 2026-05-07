@@ -2,7 +2,11 @@ const cp = require('child_process');
 const path = require('path');
 const os = require('os');
 
-let noDaemon = process.argv[2] === 'no-daemon';
+const args = process.argv.slice(2);
+const noDaemon = args.includes('no-daemon');
+const TOOLS = ['turbo', 'nx', 'lage'];
+const selectedTools = args.filter(a => TOOLS.includes(a));
+const tools = selectedTools.length ? selectedTools : TOOLS;
 
 const NUMBER_OF_RUNS = 10;
 
@@ -43,60 +47,50 @@ if (noDaemon) {
   message('Running without daemons');
 }
 
-message('prepping turbo');
-let turboArgs = ['run', 'build', `--concurrency=10`]
+const turboArgs = ['run', 'build', `--concurrency=10`];
 if (noDaemon) {
-  turboArgs.push('--no-daemon')
+  turboArgs.push('--no-daemon');
 }
-spawnSync('turbo', turboArgs);
 
-message(`running turbo ${NUMBER_OF_RUNS} times`);
-let turboTime = 0;
-for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
-  cleanFolders();
-  const b = new Date();
-  spawnSync('turbo', turboArgs);
-  const a = new Date();
-  turboTime += a.getTime() - b.getTime();
-  console.log(`The command ran in ${a.getTime() - b.getTime()}ms`);
+const toolConfig = {
+  turbo: { prepArgs: turboArgs, runArgs: turboArgs },
+  nx: {
+    prepArgs: ['run-many', '-t', 'build'],
+    runArgs: ['run-many', '-t', 'build', '--parallel', 10],
+  },
+  lage: {
+    prepArgs: ['build', '--concurrency', 3],
+    runArgs: ['build', '--concurrency', 10],
+  },
+};
+
+const averages = {};
+for (const tool of tools) {
+  const { prepArgs, runArgs } = toolConfig[tool];
+  message(`prepping ${tool}`);
+  spawnSync(tool, prepArgs);
+
+  message(`running ${tool} ${NUMBER_OF_RUNS} times`);
+  let total = 0;
+  for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
+    cleanFolders();
+    const b = new Date();
+    spawnSync(tool, runArgs);
+    const a = new Date();
+    total += a.getTime() - b.getTime();
+    console.log(`The command ran in ${a.getTime() - b.getTime()}ms`);
+  }
+  averages[tool] = total / NUMBER_OF_RUNS;
 }
-const averageTurboTime = turboTime / NUMBER_OF_RUNS;
-
-message('prepping nx');
-spawnSync('nx', ['run-many', '-t', 'build']);
-
-message(`running nx ${NUMBER_OF_RUNS} times`);
-let nxTime = 0;
-for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
-  cleanFolders();
-  const b = new Date();
-  spawnSync('nx', ['run-many', '-t', 'build', '--parallel', 10]);
-  const a = new Date();
-  nxTime += a.getTime() - b.getTime();
-  console.log(`The command ran in ${a.getTime() - b.getTime()}ms`);
-}
-const averageNxTime = nxTime / NUMBER_OF_RUNS;
-
-message('prepping lage');
-spawnSync('lage', ['build', '--concurrency', 3]);
-
-message(`running lage ${NUMBER_OF_RUNS} times`);
-let lageTime = 0;
-for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
-  cleanFolders();
-  const b = new Date();
-  spawnSync('lage', ['build', '--concurrency', 10]);
-  const a = new Date();
-  lageTime += a.getTime() - b.getTime();
-  console.log(`The command ran in ${a.getTime() - b.getTime()}ms`);
-}
-const averageLageTime =
-    lageTime / NUMBER_OF_RUNS;
 
 message('results');
-console.log(`average lage time is: ${averageLageTime}`);
-console.log(`average turbo time is: ${averageTurboTime}`);
-console.log(`average nx time is: ${averageNxTime}`);
+for (const tool of tools) {
+  console.log(`average ${tool} time is: ${averages[tool]}`);
+}
 
-console.log(`nx is ${(averageLageTime / averageNxTime).toFixed(2)}x faster than lage`);
-console.log(`nx is ${(averageTurboTime / averageNxTime).toFixed(2)}x faster than turbo`);
+if (averages.nx && averages.lage) {
+  console.log(`nx is ${(averages.lage / averages.nx).toFixed(2)}x faster than lage`);
+}
+if (averages.nx && averages.turbo) {
+  console.log(`nx is ${(averages.turbo / averages.nx).toFixed(2)}x faster than turbo`);
+}

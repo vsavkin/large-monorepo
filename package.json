@@ -2,7 +2,7 @@
   "name": "large-monorepo",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "npm@10.9.2",
+  "packageManager": "pnpm@10.28.2",
   "workspaces": [
     "apps/*",
     "packages/*/*"
@@ -12,9 +12,9 @@
     "benchmark-no-daemon": "node benchmark.js no-daemon"
   },
   "devDependencies": {
-    "nx": "20.5.0-beta.2",
-    "lage": "2.12.19",
-    "turbo": "2.4.1",
+    "nx": "22.7.0",
+    "lage": "2.15.9",
+    "turbo": "2.9.6",
     "typescript": "5.7.3"
   }
 }
