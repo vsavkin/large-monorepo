@@ -17,15 +17,15 @@ ordinary. And, the bigger the repo, the bigger the difference in performance bet
 The repo has Nx, Turbo, and Lage enabled. They don't affect each other. You can remove one without affecting the
 other one.
 
-## Benchmark & Results (May 8th, 2026, Nx 22.7)
+## Benchmark & Results (May 8th, 2026, Nx 22.7, Turbo 2.9.10, Lage 2.15.12)
 
 `npm run benchmark` runs the benchmark. The following numbers produced by an M1Pro MBP (10 cores, 32GB) on macOS 14.6.1 (Sonoma). On a Windows machine all the tools will get slower, and the delta between Nx and Turbo/Lage will get bigger.
 
-- **average lage time is: 1149.2**
-- **average turbo time is: 534.7**
-- **average nx time is: 401.3**
-- **nx is 2.86x faster than lage**
-- **nx is 1.33x faster than turbo**
+- **average lage time is: 1152.2**
+- **average turbo time is: 917.2**
+- **average nx time is: 452.5**
+- **nx is 2.55x faster than lage**
+- **nx is 2.03x faster than turbo**
 
 ### Why is Nx faster than Turbo
 
