@@ -42,7 +42,7 @@ The cache restoration Turborepo provides is likely to be fast enough for a lot o
 What matters more is the ability to distribute any command across say 50 machines while
 preserving the dev ergonomics of running it on a single machine. Nx can do it. Bazel can do it (which Nx
 borrows some ideas from). Turbo can't. This is where the perf gains are for larger repos.
-See [this overview](https://nx.dev/ci/features/distribute-task-execution) and [this benchmark](https://github.com/vsavkin/interstellar) to learn more.
+See [this overview](https://nx.dev/ci/features/distribute-task-execution) and [this benchmark](https://github.com/StalkAltan/interstellar) to learn more.
 
 ## Dev ergonomics & Staying out of your way
 
